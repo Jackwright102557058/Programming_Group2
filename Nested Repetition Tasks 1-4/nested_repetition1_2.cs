@@ -1,39 +1,40 @@
 ﻿/*
  * Created by SharpDevelop.
  * User: 102557058
- * Date: 18/04/2019
- * Time: 2:17 PM
+ * Date: 21/03/2019
+ * Time: 2:56 PM
  * 
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
-using System;   
-namespace Nested2  
-{  
-   class Program  
-   {  
-      static void Main(string[] args)  
-      {  
-      Console.WriteLine("How many x's do you want?");
-      string uinput = Console.ReadLine();
-      
-      int vinput = int.Parse(uinput);
-    
-       	
-      int count = 0;
-      int Value = 0;
-      while(count < vinput) {
-      	string x = "";
-      	int Count2 = vinput;
-      	while(Count2 > Value){
-      		x = x + "x";
-      		Count2 = Count2 -1;
-      	}
-      	Console.WriteLine(x);
-      	Value = Value +1;
-      	count++;}
-      	
-      	Console.ReadKey();
-      	
-      }
-      }  
- }
+using System;
+
+namespace Nested_Repetition
+{
+	class Program
+	{
+		public static void Main(string[] args)
+		{
+			Console.Write("Please Enter your Name ");
+			String name = Console.ReadLine();
+			
+			int counter = 0;
+			int counter2 = 0;
+			
+			while (counter < 10) {
+				counter2 = 0;
+				
+				while (counter2 < 10) {
+					Console.Write(name);
+					counter2 += 1;
+				}
+				
+				Console.WriteLine();
+				
+				counter += 1;
+					
+			}
+			Console.WriteLine("Later Nerd");
+			Console.ReadKey();
+		}
+	}
+}
