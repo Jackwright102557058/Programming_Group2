@@ -8,7 +8,7 @@ namespace VendingMachine {
     class Program {
 
         public static void Main(string[] args) {
-            string version = "Alpha v1.3";
+            string version = "Alpha v1.4";
             Console.WriteLine("                                      Welcome to the DND Character Sheet Program!");
             Console.WriteLine("                                                 Current Version " + version);
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
@@ -43,6 +43,7 @@ namespace VendingMachine {
             int copper = 0;
 
             string username = getUser();
+
 
             if(username == "dev")
             {
@@ -388,7 +389,8 @@ namespace VendingMachine {
                 Console.WriteLine();
                 Console.WriteLine("--------------------------");
                 Console.WriteLine("Would you like to: ");
-                Console.WriteLine("(A)lter Hit Points/Roll?");
+                Console.WriteLine("(A)lter Hit Points/Roll");
+                Console.WriteLine("(R)oll Dice");
                 Console.WriteLine("(C)heck Stats");
                 Console.WriteLine("(U)pdate Coins");
                 Console.WriteLine("(P)atch Notes");
@@ -403,67 +405,33 @@ namespace VendingMachine {
                 if (input.ToLower() == "a")
                 {
                     Console.WriteLine("-------------------------------------------------");
-                    Console.WriteLine("Do you want to (R)oll or Alter (H)it Points? ");
+                    Console.WriteLine("Do you want to (S)et Status effects or Alter (H)it Points? ");
                     Console.Write("Enter Selection: ");
 
                     input = Console.ReadLine();
 
                     // ---------------------------------------------------------------//
-                    // Roll Dice
+                    // Set Status Effects
 
-                    if (input.ToLower() == "r")
+                    if (input.ToLower() == "s")
                     {
-                        while(input.ToLower() != "l"){ 
-                        Console.WriteLine("What dice do you want to roll?");
-                        Console.WriteLine("D(4)");
-                        Console.WriteLine("D(6)");
-                        Console.WriteLine("D(8)");
-                        Console.WriteLine("D(10)");
-                        Console.WriteLine("D(12)");
-                        Console.WriteLine("D(20)");
-                        Console.WriteLine("D(P)ercentage");
-                        Console.WriteLine("(L)eave");
-                        Console.Write("Enter your Selection: ");
+                        while(input.ToLower() != "l")
+                        {
+                            Console.Clear();
 
-                        input = Console.ReadLine();
-
-                        if (input.ToLower() == "4")
-                        {
-                                Console.Clear();
-                                nr = D4();
-                        }
-                        else if (input == "6")
-                        {
-                                Console.Clear();
-                                nr = D6();
-                        }
-                        else if (input == "8")
-                        {
-                                Console.Clear();
-                                nr = D8();
-                        }
-                        else if (input == "10")
-                        {
-                                Console.Clear();
-                                nr = D10();
-                        }
-                        else if (input == "12")
-                        {
-                                Console.Clear();
-                                nr = D12();
-                        }
-                        else if (input == "20")
-                        {
-                                Console.Clear();
-                                nr = D20();
-                        }
-                        else if (input.ToLower() == "p")
-                        {
-                                Console.Clear();
-                                nr = DP();
+                            Console.WriteLine("|----------------------------|");
+                            Console.WriteLine("Your Current Status Effects are");
+                            Console.WriteLine(error);
+                            Console.WriteLine();
+                            Console.WriteLine("|----------------------------|");
+                            Console.WriteLine();
+                            Console.WriteLine("What status effects would you like to set?");
+                            Console.WriteLine("List Not Implemented");
+                            Console.WriteLine("(L)eave");
+                            Console.Write("Enter your selection: ");
+                            input = Console.ReadLine();
                         }
 
-                    }
                     }
 
                     // ---------------------------------------------------------------//
@@ -505,12 +473,12 @@ namespace VendingMachine {
                         else if (input.ToLower() == "h")
                         {
                             Console.WriteLine("|-------------------------------------------------------------------|");
-                            Console.WriteLine("Where you healed with a (P)otion of healing or (O)ther?");
+                            Console.WriteLine("Where you healed with a (Po)tion of healing or (O)ther?");
                             Console.Write("Enter your selection: ");
 
                             input = Console.ReadLine();
 
-                            if (input.ToLower() == "p")
+                            if (input.ToLower() == "po")
                             {
                                 Console.WriteLine("|----------------------------|");
                                 Random dice = new Random();
@@ -520,6 +488,8 @@ namespace VendingMachine {
 
                                 Console.WriteLine("You were healed " + potion + " Hit Points");
                                 Console.WriteLine("You now have " + hp + " Hit Points;");
+
+                                Console.ReadKey();
                             }
                             else if (input.ToLower() == "o")
                             {
@@ -534,6 +504,8 @@ namespace VendingMachine {
 
                                 Console.WriteLine("You now have " + hp + " Hit Points;");
 
+                                Console.ReadKey();
+
                             }
                         }
 
@@ -542,6 +514,66 @@ namespace VendingMachine {
 
 
                 }
+
+                // ---------------------------------------------------------------//
+                // Roll Dice
+
+                if (input.ToLower() == "r")
+                {
+                    while (input.ToLower() != "l")
+                    {
+                        Console.WriteLine("What dice do you want to roll?");
+                        Console.WriteLine("D(4)");
+                        Console.WriteLine("D(6)");
+                        Console.WriteLine("D(8)");
+                        Console.WriteLine("D(10)");
+                        Console.WriteLine("D(12)");
+                        Console.WriteLine("D(20)");
+                        Console.WriteLine("D(P)ercentage");
+                        Console.WriteLine("(L)eave");
+                        Console.Write("Enter your Selection: ");
+
+                        input = Console.ReadLine();
+
+                        if (input.ToLower() == "4")
+                        {
+                            Console.Clear();
+                            nr = D4();
+                        }
+                        else if (input == "6")
+                        {
+                            Console.Clear();
+                            nr = D6();
+                        }
+                        else if (input == "8")
+                        {
+                            Console.Clear();
+                            nr = D8();
+                        }
+                        else if (input == "10")
+                        {
+                            Console.Clear();
+                            nr = D10();
+                        }
+                        else if (input == "12")
+                        {
+                            Console.Clear();
+                            nr = D12();
+                        }
+                        else if (input == "20")
+                        {
+                            Console.Clear();
+                            nr = D20();
+                        }
+                        else if (input.ToLower() == "p")
+                        {
+                            Console.Clear();
+                            nr = DP();
+                        }
+
+                    }
+                }
+
 
                 // ---------------------------------------------------------------//
                 // Check overall stats
@@ -591,12 +623,16 @@ namespace VendingMachine {
 
                 else if (input.ToLower() == "p")
                 {
+                    Console.Clear();
+
                     Console.WriteLine();
-                    Console.WriteLine("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-                    Console.WriteLine("Welcome to the Patch notes, you are currently using version" + version);
+                    Console.WriteLine("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+                    Console.WriteLine();
+                    Console.WriteLine("                        Welcome to the Patch notes, you are currently using version " + version);
                     Console.WriteLine();
                     //New Patchnotes here
 
+                    Console.WriteLine("In Aplha v1.4 - Fixed multiple menus from not being accessable, added status menu (Currently not functioning).");
                     Console.WriteLine("In Alpha v1.3 - Fixed patch note not being accessable.");
                     Console.WriteLine("In Alpha v1.2 - Added Patch Notes");
                     Console.WriteLine("In Alpha v1.1 - Updated version name to alpha version and corrected spelling.");
@@ -949,13 +985,13 @@ namespace VendingMachine {
 
         static float DP()
         {
-            Console.WriteLine("!-----------------------!");
+            Console.WriteLine("!----------------------------!");
             Console.WriteLine("   Rolling a Percentage Die");
             Random dice = new Random();
             int nr = dice.Next(1, maxValue: 101);
             Console.Write("   Your number is: ");
             Console.WriteLine(nr);
-            Console.WriteLine("!-----------------------!");
+            Console.WriteLine("!----------------------------!");
             return nr;
         }
        
