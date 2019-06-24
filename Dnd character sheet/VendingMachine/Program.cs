@@ -8,7 +8,13 @@ namespace VendingMachine {
     class Program {
 
         public static void Main(string[] args) {
-            string version = "Alpha v1.4";
+            //Current Version
+            string version = "Alpha v1.5";
+
+
+            // ---------------------------------------------------------------//
+            //Title
+
             Console.WriteLine("                                      Welcome to the DND Character Sheet Program!");
             Console.WriteLine("                                                 Current Version " + version);
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
@@ -21,6 +27,8 @@ namespace VendingMachine {
             string error = "! Function Not Working Currently !";
 
             int hp = 0;
+            int maxhp = 0;
+            int ac = 0;
 
             int str = 0;
             int dex = 0;
@@ -48,8 +56,13 @@ namespace VendingMachine {
             if(username == "dev")
             {
                 goto a;
-            } 
+            }
+
+                maxhp = getmaxhp();
                 hp = getHP();
+                ac = getac();
+
+            Console.WriteLine();
 
                 str = getstr();
                 dex = getdex();
@@ -58,7 +71,8 @@ namespace VendingMachine {
                 wis = getwis();
                 cha = getcha();
 
-
+            // ---------------------------------------------------------------//
+            //Ability Scores (Code needs to be cleaned)
 
             if (str > 0 && str < 4)
             {
@@ -389,7 +403,7 @@ namespace VendingMachine {
                 Console.WriteLine();
                 Console.WriteLine("--------------------------");
                 Console.WriteLine("Would you like to: ");
-                Console.WriteLine("(A)lter Hit Points/Roll");
+                Console.WriteLine("(A)lter Hit Points/Set Stats");
                 Console.WriteLine("(R)oll Dice");
                 Console.WriteLine("(C)heck Stats");
                 Console.WriteLine("(U)pdate Coins");
@@ -405,7 +419,11 @@ namespace VendingMachine {
                 if (input.ToLower() == "a")
                 {
                     Console.WriteLine("-------------------------------------------------");
-                    Console.WriteLine("Do you want to (S)et Status effects or Alter (H)it Points? ");
+                    Console.WriteLine("Would you like to: ");
+                    Console.WriteLine("(S)et Status effects");
+                    Console.WriteLine("Alter (H)it Points");
+                    Console.WriteLine("(AC) Change");
+                    Console.WriteLine("(Ma)x HP Change");
                     Console.Write("Enter Selection: ");
 
                     input = Console.ReadLine();
@@ -435,6 +453,34 @@ namespace VendingMachine {
                     }
 
                     // ---------------------------------------------------------------//
+                    // Change AC
+
+                    else if (input.ToLower() == "ac")
+                    {
+                        Console.Clear();
+
+                        Console.WriteLine("|----------------------------|");
+                        Console.WriteLine("Your Current AC is: " + ac);
+                        Console.WriteLine();
+                        Console.Write("What would you like your new AC to be?: ");
+                        ac = int.Parse(Console.ReadLine());
+                    }
+
+                    // ---------------------------------------------------------------//
+                    // Change Max HP
+
+                    else if (input.ToLower() == "ma")
+                    {
+                        Console.Clear();
+
+                        Console.WriteLine("|----------------------------|");
+                        Console.WriteLine("Your Current Max HP is: " + maxhp);
+                        Console.WriteLine();
+                        Console.Write("What would you like your new Max HP to be?: ");
+                        maxhp = int.Parse(Console.ReadLine());
+                    }
+
+                    // ---------------------------------------------------------------//
                     // Alter Hit Points
 
                     else if (input.ToLower() == "h")
@@ -459,11 +505,19 @@ namespace VendingMachine {
                             if (hp > 0)
                             {
                                 Console.WriteLine("You now have " + hp + " Hit Points Left!");
+                                Console.ReadKey();
                             }
                             else if (hp <= 0)
                             {
                                 Console.WriteLine("You have " + hp + " Left you are dying!!!");
+                                Console.ReadKey();
 
+                            }
+                            //Need to fix this!
+                            else if (hp <= -maxhp)
+                            {
+                                Console.WriteLine("You have exceeded your max damage you are dead!");
+                                Console.ReadKey();
                             }
                         }
 
@@ -478,6 +532,7 @@ namespace VendingMachine {
 
                             input = Console.ReadLine();
 
+                            //Potion of Healing
                             if (input.ToLower() == "po")
                             {
                                 Console.WriteLine("|----------------------------|");
@@ -487,10 +542,12 @@ namespace VendingMachine {
                                 hp = hp += potion;
 
                                 Console.WriteLine("You were healed " + potion + " Hit Points");
-                                Console.WriteLine("You now have " + hp + " Hit Points;");
+                                Console.WriteLine("You now have " + hp + " Hit Points");
 
                                 Console.ReadKey();
                             }
+
+                            //Other Healing
                             else if (input.ToLower() == "o")
                             {
                                 Console.WriteLine("|----------------------------|");
@@ -535,36 +592,49 @@ namespace VendingMachine {
 
                         input = Console.ReadLine();
 
+                        //D4
                         if (input.ToLower() == "4")
                         {
                             Console.Clear();
                             nr = D4();
                         }
+
+                        //D6
                         else if (input == "6")
                         {
                             Console.Clear();
                             nr = D6();
                         }
+
+                        //D8
                         else if (input == "8")
                         {
                             Console.Clear();
                             nr = D8();
                         }
+
+                        //D10
                         else if (input == "10")
                         {
                             Console.Clear();
                             nr = D10();
                         }
+
+                        //D12
                         else if (input == "12")
                         {
                             Console.Clear();
                             nr = D12();
                         }
+
+                        //D20
                         else if (input == "20")
                         {
                             Console.Clear();
                             nr = D20();
                         }
+
+                        //Percentage Die
                         else if (input.ToLower() == "p")
                         {
                             Console.Clear();
@@ -586,7 +656,9 @@ namespace VendingMachine {
                     Console.WriteLine("////////////////////////////////////////////////");
                     Console.WriteLine();
                     Console.WriteLine("Your Character Name is: " + username);
+                    Console.WriteLine("Your Hit Point Maximum is:" + maxhp);
                     Console.WriteLine("Your current HP is: " + hp);
+                    Console.WriteLine("Your Armour Class is: " + ac);
                     Console.WriteLine("Your last roll was a: " + nr);
                     Console.WriteLine("Your last potion healed your for: " + potion);
                     Console.WriteLine("You last took: " + damage + " Points of damage!");
@@ -632,13 +704,14 @@ namespace VendingMachine {
                     Console.WriteLine();
                     //New Patchnotes here
 
-                    Console.WriteLine("In Aplha v1.4 - Fixed multiple menus from not being accessable, added status menu (Currently not functioning).");
+                    Console.WriteLine("In Alpha v1.5 - Added Max HP and AC, as well as being able to change them later, menu changes and other minor fixes");
+                    Console.WriteLine("In Alpha v1.4 - Fixed multiple menus not being accessable, added status menu (Currently not functioning).");
                     Console.WriteLine("In Alpha v1.3 - Fixed patch note not being accessable.");
                     Console.WriteLine("In Alpha v1.2 - Added Patch Notes");
                     Console.WriteLine("In Alpha v1.1 - Updated version name to alpha version and corrected spelling.");
                     Console.WriteLine("In Alpha v1.0 - Added Ability Score modifiers and some other minor fixes.");
                     Console.WriteLine("In Alpha v0.8 - Added Ability Scores and simplified code.");
-                    Console.WriteLine("In Alpha v0.5 - Fixed Rolls, allow player to set starting coin values not showing up in stats.");
+                    Console.WriteLine("In Alpha v0.5 - Fixed Rolls, allow player to set starting coin values, as well as values not showing up in stats.");
                     Console.WriteLine("In Alpha v0.2 - Added Coins and ability to track them.");
                     Console.WriteLine("In Alpha v0.1 - Added Name, Hp, and Basic Rolls as well as being able to track some of them.");
 
@@ -652,6 +725,9 @@ namespace VendingMachine {
                 {
                     while (input.ToLower() != "l")
                     {
+
+                        Console.Clear();
+
                         Console.WriteLine("---------------------------");
                         Console.WriteLine("What currency are you adding/subtracting?");
                         Console.WriteLine("(P)latinum Pieces");
@@ -835,6 +911,16 @@ namespace VendingMachine {
             return input;
         }
 
+        public static int getmaxhp()
+        {
+            int maxhp = 0;
+
+            Console.Write("Please enter your Max Hit Points: ");
+            maxhp = int.Parse(Console.ReadLine());
+
+            return maxhp;
+        }
+
         public static int getHP()
         {
             int hp = 0;
@@ -844,6 +930,19 @@ namespace VendingMachine {
 
             return hp;
         }
+
+        public static int getac()
+        {
+            int ac = 0;
+
+            Console.Write("Please enter your current AC: ");
+            ac = int.Parse(Console.ReadLine());
+
+            return ac;
+        }
+
+
+
 
         public static int getstr()
         {
